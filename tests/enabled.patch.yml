@@ -1,0 +1,3 @@
+- id: dsh-web-tools-settings
+  config:
+    enabled: true

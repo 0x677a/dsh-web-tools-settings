@@ -1,0 +1,12 @@
+# The rc.6 base intentionally ships web_fetch disabled. Mount its anonymous
+# public HTTP provider, then mount this plugin, which registers the tool only
+# when the Web settings card is enabled.
+- insert:
+    - id: dsh-web-tools-fetch-http
+      name: '@deepseek-ai/dsh-web-fetch-http'
+    - id: dsh-web-tools-settings
+      name: 'dsh-web-tools-settings'
+      config:
+        enabled: false
+        fetchTimeoutMs: 30000
+        fetchMaxOutputChars: 200000
