@@ -9,7 +9,7 @@ if (-not (Test-Path -LiteralPath $dsh)) { throw "Cannot find dsh.cmd under $DshR
 
 $dshHomePath = Join-Path $DshRoot 'dsh-home'
 $env:DSH_HOME = $dshHomePath
-$packDir = Join-Path ([IO.Path]::GetTempPath()) ("dsh-web-tools-settings-pack-" + $PID)
+$packDir = Join-Path $repoRoot '.dsh-package'
 New-Item -ItemType Directory -Force -Path $packDir | Out-Null
 Push-Location $repoRoot
 try {
