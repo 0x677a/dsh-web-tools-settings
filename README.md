@@ -16,8 +16,8 @@ Windows 宿主机版 DeepSeek Harness 的 `web_fetch` 设置插件。
 在 PowerShell 中：
 
 ```powershell
-git clone https://github.com/0x677a/dsh-web-tools-settings.git D:\dsh-web-tools-settings
-Set-Location D:\dsh-web-tools-settings
+git clone https://github.com/0x677a/dsh-web-tools-settings.git D:\deepseek-harness\my_file
+Set-Location D:\deepseek-harness\my_file
 .\install.ps1 -DshRoot D:\deepseek-harness
 ```
 
