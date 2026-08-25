@@ -21,9 +21,23 @@ Set-Location D:\dsh-web-tools-settings
 .\install.ps1 -DshRoot D:\deepseek-harness
 ```
 
+安装脚本会直接用官方 profile 管理方式安装 `github:0x677a/dsh-web-tools-settings`，不会把本机 checkout 路径写入 DSH profile。`git clone` 只是为了拿到安装脚本；插件运行包由 DSH profile 的 pnpm 管理。
+
+也可以不 clone，直接执行：
+
+```powershell
+$env:DSH_HOME = 'D:\deepseek-harness\dsh-home'
+dsh plugin --profile web add github:0x677a/dsh-web-tools-settings
+```
+
 如果你的 DSH 不在 `D:\deepseek-harness`，传入实际目录，或设置 `$env:DSH_INSTALL_ROOT`。
 
-安装脚本会把当前 clone 打包后装入 profile `web`，避免 Windows 上的本地 link 路径绕过 DSH 的依赖闭包。以后更新代码后重新运行一次 `install.ps1`，它会重新打包并替换 profile 中的插件。
+以后更新插件：
+
+```powershell
+$env:DSH_HOME = 'D:\deepseek-harness\dsh-home'
+dsh plugin --profile web update dsh-web-tools-settings
+```
 
 然后打开：
 
