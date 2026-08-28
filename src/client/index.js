@@ -261,14 +261,22 @@ export function apply(ctx) {
   const t = ctx.locale.bind(LOCALE_NAMESPACE);
   ctx.effect(() => ctx.locale.register(LOCALE_NAMESPACE, { en, zh }), "dsh-web-tools-settings: locale");
   const controller = new WebToolsCardController(ctx.settingsScope.bind({ namespace: SETTINGS_NAMESPACE }));
-  ctx.slots.inject("settings.plugin.item", () => ctx.slots.register({
-    name: "settings.plugin.item",
-    id: "dsh-web-tools-settings",
-    order: 30,
-    locale: LOCALE_NAMESPACE,
-    inject: () => ({
-      ...controller.inject(),
-      t
-    })
-  }, WebToolsCard));
+  // DSH >= 0.1.1 declares "settings.plugin.item" as a keyed slot where the key
+  // must be the plugin's settings namespace; 0.1.0-rc.x used a list slot keyed
+  // by id. Try the keyed form first and fall back so both generations load.
+  ctx.slots.inject("settings.plugin.item", () => {
+    const common = {
+      name: "settings.plugin.item",
+      locale: LOCALE_NAMESPACE,
+      inject: () => ({
+        ...controller.inject(),
+        t
+      })
+    };
+    try {
+      ctx.slots.register({ ...common, key: SETTINGS_NAMESPACE }, WebToolsCard);
+    } catch (err) {
+      ctx.slots.register({ ...common, id: "dsh-web-tools-settings", order: 30 }, WebToolsCard);
+    }
+  });
 }
